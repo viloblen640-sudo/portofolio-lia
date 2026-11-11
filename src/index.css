@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+/* WARNA: ubah di sini saja. Aksen sekarang biru. Coba teal: #0e8f7a, ungu: #7c3aed */
+:root { --bg:#f5f8ff; --card:#ffffff; --ink:#0b1226; --mute:#56627f; --line:#d9e2f5; --accent:#2563eb; --soft:#e4ecff; --glow:#cfdfff; }
+.dark { --bg:#050814; --card:#0b1226; --ink:#f1f5ff; --mute:#9aa7c7; --line:#1c2747; --accent:#3b82f6; --soft:#10204a; --glow:#0d1f4d; }
+@theme inline {
+  --font-display: "Sora", system-ui, sans-serif; --font-body: "Figtree", system-ui, sans-serif;
+  --color-bg: var(--bg); --color-card: var(--card); --color-ink: var(--ink); --color-mute: var(--mute);
+  --color-line: var(--line); --color-accent: var(--accent); --color-soft: var(--soft);
+}
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+body { background: radial-gradient(ellipse at 20% 0%, var(--glow) 0, var(--bg) 55%) fixed; color: var(--ink); font-family: var(--font-body); transition: background .3s, color .3s; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes float { 50% { transform: translateY(-6px); } }
+@keyframes blink { 50% { opacity: 0; } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.pop { animation: pop .3s cubic-bezier(.2,.7,.2,1) both; }
+.float { animation: float 5s ease-in-out infinite; }
+.caret::after { content: "|"; margin-left: 2px; color: var(--accent); animation: blink 1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+html:not(.dark) canvas.fixed,html:not(.dark) .shoot{opacity:0}
+html:not(.dark) .grad{background:linear-gradient(90deg,#2563eb,#0891b2);-webkit-background-clip:text;background-clip:text}
+.grad{background:linear-gradient(90deg,#60a5fa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes shoot{0%{transform:translate(0,0);opacity:0}8%{opacity:1}100%{transform:translate(-420px,300px);opacity:0}}
+.shoot{position:fixed;top:-10px;right:10%;width:110px;height:2px;background:linear-gradient(90deg,transparent,#fff);rotate:-36deg;opacity:0;z-index:-1;animation:shoot 7s ease-in 2s infinite}
+
+.glitch{position:relative;display:block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;pointer-events:none;opacity:.8}
+.glitch::before{color:#22d3ee;animation:glitch1 3.5s infinite steps(1)}
+.glitch::after{color:#3b82f6;animation:glitch2 3.5s infinite steps(1)}
+@keyframes glitch1{0%,90%,100%{clip-path:inset(0 0 100% 0);transform:none}92%{clip-path:inset(20% 0 55% 0);transform:translate(-4px,1px)}95%{clip-path:inset(60% 0 10% 0);transform:translate(3px,-1px)}}
+@keyframes glitch2{0%,90%,100%{clip-path:inset(0 0 100% 0);transform:none}93%{clip-path:inset(45% 0 30% 0);transform:translate(4px,-1px)}96%{clip-path:inset(10% 0 70% 0);transform:translate(-3px,1px)}}
